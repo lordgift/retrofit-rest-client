@@ -1,12 +1,18 @@
-package th.go.cdgs.training.retrofitrestclient
+package th.co.cdgs.training.retrofitrestclient
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import th.co.cdgs.training.retrofitrestclient.recycler.Friend
+import th.co.cdgs.training.retrofitrestclient.recycler.FriendListRecyclerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +24,21 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+
+
+        val dataList = ArrayList<Friend>()
+        for (i in 1..10) {
+            dataList.add(Friend("Name $i", "$i", i%2==0))
+        }
+
+        with(recyclerView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = FriendListRecyclerAdapter(dataList) {
+
+            }
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         }
     }
 

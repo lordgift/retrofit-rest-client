@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="th.go.cdgs.training.retrofitrestclient">
+    package="th.co.cdgs.training.retrofitrestclient">
 
     <application
         android:allowBackup="true"

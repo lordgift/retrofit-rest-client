@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="text_margin_half">8dp</dimen>
+    <dimen name="close">0dp</dimen>
+
+    <dimen name="list_item_text">16sp</dimen>
+    <dimen name="list_item_subtitle">12sp</dimen>
 </resources>
