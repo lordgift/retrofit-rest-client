@@ -12,26 +12,54 @@ import th.co.cdgs.training.retrofitrestclient.R
 class FriendListRecyclerAdapter(
     var dataList: List<Friend?>,
     private val onButtonClicked: (item: Friend?, position: Int) -> Unit?
-) : RecyclerView.Adapter<FriendListRecyclerAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_friend, parent, false)
-        return ViewHolder(view)
+    private val VIEWTYPE_NORMAL = 0x0a
+    private val VIEWTYPE_DELETED = 0x0b
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view: View?
+        return when (viewType) {
+            VIEWTYPE_NORMAL -> {
+                view = LayoutInflater.from(parent.context).inflate(R.layout.item_friend, parent, false)
+                ViewHolder(view)
+            }
+            else -> {
+                view = LayoutInflater.from(parent.context).inflate(R.layout.item_friend_deleted, parent, false)
+                object : RecyclerView.ViewHolder(view) {
+
+                }
+            }
+        }
+
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val friend = dataList[position]
-        holder.nameTextView?.text = friend?.name
-        holder.telTextView?.text = friend?.tel
-        holder.iconStatus?.visibility = if ( friend != null && friend.status) View.VISIBLE else View.INVISIBLE
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        holder.itemView.setOnClickListener {
-            onButtonClicked(friend, position)
+        val friend = dataList[position]
+        if (holder is ViewHolder) {
+            holder.nameTextView?.text = friend?.name
+            holder.telTextView?.text = friend?.tel
+            holder.iconStatus?.visibility =
+                if (friend != null && friend.status) View.VISIBLE else View.INVISIBLE
+
+            holder.itemView.setOnClickListener {
+                onButtonClicked(friend, position)
+            }
         }
 
     }
 
     override fun getItemCount(): Int = if (dataList.isEmpty()) 1 else dataList.size
+
+    override fun getItemViewType(position: Int): Int {
+        val friend = dataList[position]
+        return if (friend != null) {
+            VIEWTYPE_NORMAL
+        } else {
+            VIEWTYPE_DELETED
+        }
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nameTextView: TextView? = itemView.nameTextView
