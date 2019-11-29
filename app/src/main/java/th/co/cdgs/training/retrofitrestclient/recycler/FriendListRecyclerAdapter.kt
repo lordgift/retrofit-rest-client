@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.item_friend.view.*
 import th.co.cdgs.training.retrofitrestclient.R
 
 class FriendListRecyclerAdapter(
-    var dataList: List<Friend>,
-    private val onButtonClicked: (item: Friend) -> Unit?
+    var dataList: List<Friend?>,
+    private val onButtonClicked: (item: Friend?, position: Int) -> Unit?
 ) : RecyclerView.Adapter<FriendListRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,19 +21,17 @@ class FriendListRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val friend = dataList[position]
-        holder.nameTextView?.text = friend.name
-        holder.telTextView?.text = friend.tel
-        holder.iconStatus?.visibility = if (friend.status) View.VISIBLE else View.INVISIBLE
+        holder.nameTextView?.text = friend?.name
+        holder.telTextView?.text = friend?.tel
+        holder.iconStatus?.visibility = if ( friend != null && friend.status) View.VISIBLE else View.INVISIBLE
 
         holder.itemView.setOnClickListener {
-            onButtonClicked(friend)
+            onButtonClicked(friend, position)
         }
 
     }
 
-    override fun getItemCount(): Int {
-        return if (dataList.isEmpty()) 1 else dataList.size
-    }
+    override fun getItemCount(): Int = if (dataList.isEmpty()) 1 else dataList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nameTextView: TextView? = itemView.nameTextView

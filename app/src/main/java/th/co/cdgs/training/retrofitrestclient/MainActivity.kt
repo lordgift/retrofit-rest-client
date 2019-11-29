@@ -1,14 +1,14 @@
 package th.co.cdgs.training.retrofitrestclient
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import th.co.cdgs.training.retrofitrestclient.recycler.Friend
@@ -16,26 +16,27 @@ import th.co.cdgs.training.retrofitrestclient.recycler.FriendListRecyclerAdapter
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Generating your new friend", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
 
 
-        val dataList = ArrayList<Friend>()
+        var dataList = ArrayList<Friend>()
         for (i in 1..10) {
-            dataList.add(Friend("Name $i", "$i", i%2==0))
+            dataList.add(Friend("Name $i", "$i", i % 2 == 0))
         }
 
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = FriendListRecyclerAdapter(dataList) {
+            adapter = FriendListRecyclerAdapter(dataList) { friend, position ->
 
             }
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -53,7 +54,9 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_refresh -> {
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
