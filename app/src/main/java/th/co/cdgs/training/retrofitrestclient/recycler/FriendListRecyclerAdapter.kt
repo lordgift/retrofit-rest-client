@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_friend.view.*
 import th.co.cdgs.training.retrofitrestclient.R
 
 class FriendListRecyclerAdapter(
-    private val dataList: List<Friend>,
+    var dataList: List<Friend>,
     private val onButtonClicked: (item: Friend) -> Unit?
 ) : RecyclerView.Adapter<FriendListRecyclerAdapter.ViewHolder>() {
 
