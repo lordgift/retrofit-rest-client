@@ -1,0 +1,11 @@
+{
+  "friends" : [ {
+    "name" : "My Friend",
+    "status" : true,
+    "tel" : "098765432"
+  }, {
+    "name" : "friend of friend",
+    "status" : false,
+    "tel" : "087654321"
+  } ]
+}
