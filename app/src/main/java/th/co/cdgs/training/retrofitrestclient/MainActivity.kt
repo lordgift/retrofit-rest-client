@@ -23,11 +23,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Generating your new friend", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+
+            // TODO fab handler
+
         }
 
 
+        // TODO this is mocking data
 
         var dataList = ArrayList<Friend>()
         for (i in 1..10) {
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context)
             adapter = FriendListRecyclerAdapter(dataList) { friend, position ->
+
+                // TODO item clicked
 
             }
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))

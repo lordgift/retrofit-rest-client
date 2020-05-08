@@ -11,7 +11,7 @@ import th.co.cdgs.training.retrofitrestclient.R
 
 class FriendListRecyclerAdapter(
     var dataList: List<Friend?>,
-    private val onButtonClicked: (item: Friend?, position: Int) -> Unit?
+    private val onItemClicked: (item: Friend?, position: Int) -> Unit?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val VIEWTYPE_NORMAL = 0x0a
@@ -44,7 +44,7 @@ class FriendListRecyclerAdapter(
                 if (friend != null && friend.status) View.VISIBLE else View.INVISIBLE
 
             holder.itemView.setOnClickListener {
-                onButtonClicked(friend, position)
+                onItemClicked(friend, position)
             }
         }
 
